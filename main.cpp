@@ -1,28 +1,27 @@
 #include <iostream>
+#include <memory>
 
-#include "furniturefactory.h"
-#include "chairfactory.h"
-#include "tablefactory.h"
+#include "UnitFactory/unitlightfactory.h"
+#include "UnitFactory/unitfactory.h"
+#include "UnitFactory/unitheavyfactory.h"
+// patterns: abstract factory
 
-// patterns: fabric
-
-void defineWhat ( const FurnitureFactory &f )
+void getUnit ( const Abstract_UnitFactory &ufb )
 {
-    std::shared_ptr < Furniture > ptr = f.create();
-
-    if ( ptr )
-        ptr.get()->print();
-    else
-        std::cout << "main(): defineWhat(): something went wrong\n";
+    std::unique_ptr < Unit > unit ( ufb.create() );
+    unit.get()->showItems();
 }
 
 int main()
 {
-    ChairFactory cf;
-    TableFactory tf;
+    UnitLightFactory unit1;
+    getUnit ( unit1 );
 
-    defineWhat ( cf );
-    defineWhat ( tf );
+    UnitFactory unit2;
+    getUnit ( unit2 );
+
+    UnitHeavyFactory unit3;
+    getUnit ( unit3 );
 
     return 0;
 }
