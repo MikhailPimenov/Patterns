@@ -1,27 +1,28 @@
 #include <iostream>
 #include <memory>
 
-#include "UnitFactory/unitlightfactory.h"
-#include "UnitFactory/unitfactory.h"
-#include "UnitFactory/unitheavyfactory.h"
-// patterns: abstract factory
+// patterns: builder part1
+#include "User/user.h"
+#include "UserBuilder/userbuilder.h"
 
-void getUnit ( const Abstract_UnitFactory &ufb )
+void testBuilder()
 {
-    std::unique_ptr < Unit > unit ( ufb.create() );
-    unit.get()->showItems();
-}
+    UserBuilder builder;
+    std::unique_ptr < User > user = builder.addFirstName ( "Arkady" )
+                                           .addSecondName ( "Single" )
+                                           .addStreet ( "Logovo-volkov street" )
+                                           .addAge ( 20 )
+                                           .build();
+    user.get()->print();
 
+    auto user2 = builder.addFirstName ( "Andrew" )
+                        .addAge ( 18 )
+                        .build();
+    user2.get()->print();
+
+}
 int main()
 {
-    UnitLightFactory unit1;
-    getUnit ( unit1 );
-
-    UnitFactory unit2;
-    getUnit ( unit2 );
-
-    UnitHeavyFactory unit3;
-    getUnit ( unit3 );
-
+    testBuilder();
     return 0;
 }
