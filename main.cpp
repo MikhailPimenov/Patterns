@@ -3,70 +3,29 @@
 #include <memory>
 #include <vector>
 
-// patterns: adapter
+// patterns: bridge
+#include "Logger/logger.h"
 
-class FarenheitSensor
+
+void testBridge()
 {
-public:
-    FarenheitSensor() = default;
-    virtual ~FarenheitSensor() {}
+    std::unique_ptr < Logger > logger1 ( std::make_unique < FileLogger > ( "file1" ) );
+    logger1.get()->log ( "first message" );
 
-    float get() const
-    {
-        float degree = 100.0f;
-        return degree;
-    }
-};
 
-class Sensor
-{
-public:
-    Sensor() = default;
-    virtual ~Sensor() {}
+    std::unique_ptr < Logger > logger2 ( std::make_unique < SocketLogger > ( "host1", "port1" ) );
+    logger2.get()->log ( "second message" );
 
-    virtual float get() const = 0;
-};
 
-class CelsiumSensorAdapter : public Sensor
-{
-private:
-    std::unique_ptr < FarenheitSensor > mFarenheitSensor;
-public:
-    CelsiumSensorAdapter ( std::unique_ptr < FarenheitSensor > farenheitSensor )
-        : mFarenheitSensor { std::move ( farenheitSensor ) }
-    {}
+    std::unique_ptr < Logger > logger3 ( std::make_unique < ConsoleLogger > () );
+    logger3.get()->log ( "third message" );
 
-    virtual float get() const override
-    {
-        if ( mFarenheitSensor )
-            return CelsiumSensorAdapter::fromFarenheitToCelsium ( mFarenheitSensor.get()->get() );
-
-        return 0.0f;
-    }
-
-private:
-    static float fromFarenheitToCelsium ( float farenheit )
-    {
-        return 5.0f / 9.0f * ( farenheit - 32.0f );
-    }
-};
-
-void testAdapter()
-{
-    std::unique_ptr < FarenheitSensor > fs ( std::make_unique < FarenheitSensor > () );
-
-    float celsium;
-    CelsiumSensorAdapter csa ( std::move ( fs ) );
-    celsium = csa.get();
-
-    std::cout << "Celsium: " << celsium << "'C\n";
-
-    std::cout << "testAdapter(): end\n";
+    std::cout << "testBridge(): end\n";
 }
 
 int main()
 {
-    testAdapter();
+    testBridge();
     std::cout << "main(): end\n";
     return 0;
 }
