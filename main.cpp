@@ -1,53 +1,58 @@
 #include <iostream>
 #include <memory>
-#include <cassert>
 
-// patterns: decorator
+// patterns: facade
 
-#include "nodecorator/a.h"
-#include "decorator/decorator.h"
+#include "department/idepartment.h"
+#include "facade/facadedepartment.h"
 
-void noDecorator()
+void noFacade()
 {
-    Aonly a;
-    a.doIt();
-    std::cout << '\n';
+    Worker1 w1;
+    Worker2 w2;
+    Worker3 w3;
 
-    AwithX ax;
-    ax.doIt();
-    std::cout << '\n';
+    int count = 0;
+    w1.setTask();
+    while ( ! w1.checkTask() )
+    {
+        ++count;
+    }
 
-    AwithXY axy;
-    axy.doIt();
-    std::cout << '\n';
+    w2.setTask();
+    while ( ! w2.checkTask() )
+    {
+        ++count;
+    }
 
-    AwithXYZ axyz;
-    axyz.doIt();
-    std::cout << '\n';
+    w3.setTask();
+    while ( ! w3.checkTask() )
+    {
+        ++count;
+    }
+
+    std::cout << "Task completed: " << count << " checks needed.\n";
 }
-void decorator()
+void facade()
 {
-    std::unique_ptr < I > xyz ( std::make_unique < Z > (
-                                    std::make_unique < Y > (
-                                        std::make_unique < X > (
-                                            std::make_unique < A > () ) ) ) );
-    xyz.get()->doIt();
-    std::cout << '\n';
+    FacadeDepartment f;
+    f.setTask();
+
+    while ( ! f.checkTask() )
+    {}
 }
-void testDecorator()
+void testFacade()
 {
-    std::cout << "\nno decorator:\n";
-    noDecorator();
-
-    std::cout << "\ndecorator:\n";
-    decorator();
-
-    std::cout << "testDecorator(): end\n";
+    std::cout << "\nno facade:\n";
+    noFacade();
+    std::cout << "\nfacade:\n";
+    facade();
+    std::cout << "\ntestFacade(): end\n";
 }
 
 int main()
 {
-    testDecorator();
+    testFacade();
     std::cout << "main(): end\n";
     return 0;
 }
