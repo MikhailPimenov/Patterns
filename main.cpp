@@ -1,52 +1,60 @@
 #include <iostream>
 #include <memory>
 
-// patterns: flyweight
-#include "noflyweight/twodigitnumber.h"
-#include "flyweight/twodigitsnumberflyweight.h"
+// patterns: proxy
+#include "noproxy/image.h"
+#include "proxy/imageproxy.h"
 
-void noflyweight()
+int Image::s_IdGenerator = 0;
+int ImageProxy::s_IdGenerator = 0;
+void noproxy()
 {
-    for ( int count1 = 0; count1 < 6; ++count1 )
+    Image images[5];
+
+    while ( true )
     {
-        for ( int count2 = 0; count2 < 10; ++count2 )
-        {
-            TwoDigitNumber n ( count1 * 10 + count2 );
-            n.printNumber();
-        }
-        std::cout << '\n';
-    }
+        std::cout << "Enter '0' to exit, [1-5] to draw image\n";
+        int action { -1 };
+        std::cin >> action;
 
-}
+        if ( action == 0 )
+            break;
 
-std::vector < TwoDigitsNumberFlyweight > Factory::s_flyweights;
-
-void flyweight()
-{
-    for ( int count1 = 0; count1 < 6; ++count1 )
-    {
-        for ( int count2 = 0; count2 < 10; ++count2 )
-        {
-            TwoDigitsNumberFlyweight n = Factory::getFlyweight ( count1 );
-            n.setSecond ( count2 );
-            n.printNumber();
-        }
-        std::cout << '\n';
+        if ( action <= 5 && action >= 1 )
+            images[action - 1].draw();
     }
 }
 
-void testFlyweight()
+void proxy()
 {
-    std::cout << "\nno flyweight:\n";
-    noflyweight();
-    std::cout << "\nflyweight:\n";
-    flyweight();
-    std::cout << "\ntestFlyweight(): end\n";
+    ImageProxy images[5];
+
+    while ( true )
+    {
+        std::cout << "Enter '0' to exit, [1-5] to draw image\n";
+        int action { -1 };
+        std::cin >> action;
+
+        if ( action == 0 )
+            break;
+
+        if ( action <= 5 && action >= 1 )
+            images[action - 1].draw();
+    }
+}
+
+void testProxy()
+{
+    std::cout << "\nno proxy:\n";
+    noproxy();
+    std::cout << "\nproxy:\n";
+    proxy();
+    std::cout << "\ntestProxy(): end\n";
 }
 
 int main()
 {
-    testFlyweight();
+    testProxy();
     std::cout << "main(): end\n";
     return 0;
 }
