@@ -1,58 +1,52 @@
 #include <iostream>
 #include <memory>
 
-// patterns: facade
+// patterns: flyweight
+#include "noflyweight/twodigitnumber.h"
+#include "flyweight/twodigitsnumberflyweight.h"
 
-#include "department/idepartment.h"
-#include "facade/facadedepartment.h"
-
-void noFacade()
+void noflyweight()
 {
-    Worker1 w1;
-    Worker2 w2;
-    Worker3 w3;
-
-    int count = 0;
-    w1.setTask();
-    while ( ! w1.checkTask() )
+    for ( int count1 = 0; count1 < 6; ++count1 )
     {
-        ++count;
+        for ( int count2 = 0; count2 < 10; ++count2 )
+        {
+            TwoDigitNumber n ( count1 * 10 + count2 );
+            n.printNumber();
+        }
+        std::cout << '\n';
     }
 
-    w2.setTask();
-    while ( ! w2.checkTask() )
-    {
-        ++count;
-    }
-
-    w3.setTask();
-    while ( ! w3.checkTask() )
-    {
-        ++count;
-    }
-
-    std::cout << "Task completed: " << count << " checks needed.\n";
 }
-void facade()
-{
-    FacadeDepartment f;
-    f.setTask();
 
-    while ( ! f.checkTask() )
-    {}
-}
-void testFacade()
+std::vector < TwoDigitsNumberFlyweight > Factory::s_flyweights;
+
+void flyweight()
 {
-    std::cout << "\nno facade:\n";
-    noFacade();
-    std::cout << "\nfacade:\n";
-    facade();
-    std::cout << "\ntestFacade(): end\n";
+    for ( int count1 = 0; count1 < 6; ++count1 )
+    {
+        for ( int count2 = 0; count2 < 10; ++count2 )
+        {
+            TwoDigitsNumberFlyweight n = Factory::getFlyweight ( count1 );
+            n.setSecond ( count2 );
+            n.printNumber();
+        }
+        std::cout << '\n';
+    }
+}
+
+void testFlyweight()
+{
+    std::cout << "\nno flyweight:\n";
+    noflyweight();
+    std::cout << "\nflyweight:\n";
+    flyweight();
+    std::cout << "\ntestFlyweight(): end\n";
 }
 
 int main()
 {
-    testFacade();
+    testFlyweight();
     std::cout << "main(): end\n";
     return 0;
 }
