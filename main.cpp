@@ -1,33 +1,33 @@
 #include <iostream>
+#include <vector>
+#include <functional>
 #include <memory>
 
-// patterns: chain of responsibility
-#include "chainofresponsibility/handlerbase.h"
+// patterns: command
+#include "command/commandbase.h"
 
-void testChainOfResponsibility()
+void testCommand()
 {
-    std::shared_ptr < Handler1 > h1 ( std::make_shared < Handler1 > () );
-    std::shared_ptr < Handler2 > h2 ( std::make_shared < Handler2 > () );
-    std::shared_ptr < Handler3 > h3 ( std::make_shared < Handler3 > () );
-    std::shared_ptr < Handler4 > h4 ( std::make_shared < Handler4 > () );
+    ChessGame game;
+    std::vector < std::unique_ptr < CommandBase > > v;
+    v.push_back ( std::make_unique < CreateGameCommand > ( &game ) );
+    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
+    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
+    v.push_back ( std::make_unique < LoadGameCommand > ( &game ) );
+    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
+    v.push_back ( std::make_unique < UndoMoveCommand > ( &game ) );
+    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
+    v.push_back ( std::make_unique < SaveGameCommand > ( &game ) );
 
-    h1.get()->add ( h2 );
-    h1.get()->add ( h3 );
-    h1.get()->add ( h4 );
-    h4.get()->setHandlerNext ( h1 );
+    for ( const auto &command : v )
+        command.get()->execute();
 
-    srand ( 0u );
-    for ( int i = 0; i < 10; ++i )
-    {
-        h1->handle ( i );
-    }
-
-    std::cout << "\ntestChainOfResponsibility(): end\n";
+    std::cout << "\ntestCommand(): end\n";
 }
 
 int main()
 {
-    testChainOfResponsibility();
+    testCommand();
     std::cout << "main(): end\n";
     return 0;
 }
