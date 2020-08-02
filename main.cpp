@@ -1,60 +1,33 @@
 #include <iostream>
 #include <memory>
 
-// patterns: proxy
-#include "noproxy/image.h"
-#include "proxy/imageproxy.h"
+// patterns: chain of responsibility
+#include "chainofresponsibility/handlerbase.h"
 
-int Image::s_IdGenerator = 0;
-int ImageProxy::s_IdGenerator = 0;
-void noproxy()
+void testChainOfResponsibility()
 {
-    Image images[5];
+    std::shared_ptr < Handler1 > h1 ( std::make_shared < Handler1 > () );
+    std::shared_ptr < Handler2 > h2 ( std::make_shared < Handler2 > () );
+    std::shared_ptr < Handler3 > h3 ( std::make_shared < Handler3 > () );
+    std::shared_ptr < Handler4 > h4 ( std::make_shared < Handler4 > () );
 
-    while ( true )
+    h1.get()->add ( h2 );
+    h1.get()->add ( h3 );
+    h1.get()->add ( h4 );
+    h4.get()->setHandlerNext ( h1 );
+
+    srand ( 0u );
+    for ( int i = 0; i < 10; ++i )
     {
-        std::cout << "Enter '0' to exit, [1-5] to draw image\n";
-        int action { -1 };
-        std::cin >> action;
-
-        if ( action == 0 )
-            break;
-
-        if ( action <= 5 && action >= 1 )
-            images[action - 1].draw();
+        h1->handle ( i );
     }
-}
 
-void proxy()
-{
-    ImageProxy images[5];
-
-    while ( true )
-    {
-        std::cout << "Enter '0' to exit, [1-5] to draw image\n";
-        int action { -1 };
-        std::cin >> action;
-
-        if ( action == 0 )
-            break;
-
-        if ( action <= 5 && action >= 1 )
-            images[action - 1].draw();
-    }
-}
-
-void testProxy()
-{
-    std::cout << "\nno proxy:\n";
-    noproxy();
-    std::cout << "\nproxy:\n";
-    proxy();
-    std::cout << "\ntestProxy(): end\n";
+    std::cout << "\ntestChainOfResponsibility(): end\n";
 }
 
 int main()
 {
-    testProxy();
+    testChainOfResponsibility();
     std::cout << "main(): end\n";
     return 0;
 }
