@@ -1,33 +1,34 @@
 #include <iostream>
-#include <vector>
-#include <functional>
-#include <memory>
 
-// patterns: command
-#include "command/commandbase.h"
+// patterns: iterator
+#include "iterator/stack.h"
 
-void testCommand()
+
+void testIterator()
 {
-    ChessGame game;
-    std::vector < std::unique_ptr < CommandBase > > v;
-    v.push_back ( std::make_unique < CreateGameCommand > ( &game ) );
-    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
-    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
-    v.push_back ( std::make_unique < LoadGameCommand > ( &game ) );
-    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
-    v.push_back ( std::make_unique < UndoMoveCommand > ( &game ) );
-    v.push_back ( std::make_unique < MakeMoveCommand > ( &game ) );
-    v.push_back ( std::make_unique < SaveGameCommand > ( &game ) );
+    Stack s1;
+    s1.push ( 1 );
+    s1.push ( 2 );
+    s1.push ( 3 );
+    s1.push ( 4 );
+    s1.push ( 5 );
 
-    for ( const auto &command : v )
-        command.get()->execute();
+    Stack s2 ( s1 ), s3 ( s1 ), s4 ( s1 );
+    s3.pop();
+    s4.push ( 666 );
+    s4.push ( 777 );
 
-    std::cout << "\ntestCommand(): end\n";
+    std::cout << std::boolalpha;
+    std::cout << "s1 == s2 : " << ( s1 == s2 ) << '\n';
+    std::cout << "s1 == s3 : " << ( s1 == s3 ) << '\n';
+    std::cout << "s1 == s4 : " << ( s1 == s4 ) << '\n';
+
+    std::cout << "\ntestIterator(): end\n";
 }
 
 int main()
 {
-    testCommand();
+    testIterator();
     std::cout << "main(): end\n";
     return 0;
 }
