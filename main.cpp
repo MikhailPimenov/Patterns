@@ -1,70 +1,48 @@
 #include <iostream>
 
-// patterns: mediator
-#include "nomediator/node1.h"
-#include "mediator/node.h"
+// patterns: memento
+#include "memento/number.h"
 
-void nomediator()
+int Command::s_current = 0;
+int Command::s_max = 0;
+std::shared_ptr < Command > Command::s_commands[200];
+std::shared_ptr < Memento > Command::s_mementos[200];
+
+void testMemento()
 {
-    std::shared_ptr < Node1 > node1 ( std::make_shared < Node1 > ( 11 ) );
-    std::shared_ptr < Node1 > node2 ( std::make_shared < Node1 > ( 22 ) );
-    std::shared_ptr < Node1 > node3 ( std::make_shared < Node1 > ( 33 ) );
-    std::shared_ptr < Node1 > node4 ( std::make_shared < Node1 > ( 44 ) );
-    std::shared_ptr < Node1 > node5 ( std::make_shared < Node1 > ( 55 ) );
+    int i = 0;
+    std::cout << "Integer: ";
+    std::cin >> i;
+    std::shared_ptr < Number > object ( std::make_shared < Number > ( i ) );
 
-    node1.get()->add ( node2 );
-    node1.get()->add ( node3 );
-    node1.get()->add ( node4 );
-    node1.get()->add ( node5 );
+    std::unique_ptr < Command > commands[3];
+    commands[1] = std::make_unique < Command > ( object, &Number::dubble );
+    commands[2] = std::make_unique < Command > ( object, &Number::half );
 
-    node1.get()->traverse();
-    node1.get()->remove ( 33 );
-    node1.get()->traverse();
-    node1.get()->remove ( 22 );
-    node1.get()->traverse();
-    node1.get()->remove ( 44 );
-    node1.get()->remove ( 55 );
-    node1.get()->traverse();
-}
-void mediator()
-{
-    Mediator repository;
-    repository.add ( Node ( 11 ) );
-    repository.add ( Node ( 22 ) );
-    repository.add ( Node ( 33 ) );
-    repository.add ( Node ( 44 ) );
-    repository.add ( Node ( 55 ) );
+    std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
+    std::cin >> i;
 
-    repository.traverse();
-    repository.remove ( 99 );
-    repository.traverse();
-    repository.remove ( 33 );
-    repository.traverse();
-    repository.remove ( 22 );
-    repository.traverse();
-    repository.remove ( 55 );
-    repository.traverse();
-    repository.remove ( 44 );
-    repository.traverse();
-    repository.remove ( 11 );
-    repository.traverse();
-}
-
-void testMediator()
-{
-    std::cout << "nomediator():\n";
-    nomediator();
-
-    std::cout << "mediator():\n";
-    mediator();
-
-    std::cout << "\ntestMediator(): end\n";
+    // no user input check
+    while (i)
+    {
+        if (i == 3)
+            Command::undo();
+        else if (i == 4)
+            Command::redo();
+        else
+            commands[i]->execute();
+        std::cout << "   " << object->getValue() << std::endl;
+        std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
+        std::cin >> i;
+    }
+    std::cout << "\ntestMemento(): end\n";
 }
 
 int main()
 {
-    testMediator();
-    std::cout << "main(): end\n";
+   testMemento();
+   std::cout << "main(): end\n";
+
 
     return 0;
 }
