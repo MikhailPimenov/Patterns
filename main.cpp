@@ -1,48 +1,45 @@
 #include <iostream>
 
-// patterns: memento
-#include "memento/number.h"
+// patterns: observer
+#include "noobserver/number1.h"
+#include "observer/number.h"
 
-int Command::s_current = 0;
-int Command::s_max = 0;
-std::shared_ptr < Command > Command::s_commands[200];
-std::shared_ptr < Memento > Command::s_mementos[200];
-
-void testMemento()
+void noobserver()
 {
-    int i = 0;
-    std::cout << "Integer: ";
-    std::cin >> i;
-    std::shared_ptr < Number > object ( std::make_shared < Number > ( i ) );
+    Number1 n ( 14 );
+    std::shared_ptr < DivObserver1 > d1 ( std::make_shared < DivObserver1 > ( 3 ) );
+    std::shared_ptr < ModObserver1 > m1 ( std::make_shared < ModObserver1 > ( 3 ) );
 
-    std::unique_ptr < Command > commands[3];
-    commands[1] = std::make_unique < Command > ( object, &Number::dubble );
-    commands[2] = std::make_unique < Command > ( object, &Number::half );
+    n.attach ( d1, m1 );
 
-    std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
-    std::cin >> i;
+    n.setValue ( 23 );
+    n.setValue ( 25 );
+}
 
-    // no user input check
-    while (i)
-    {
-        if (i == 3)
-            Command::undo();
-        else if (i == 4)
-            Command::redo();
-        else
-            commands[i]->execute();
-        std::cout << "   " << object->getValue() << std::endl;
-        std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
-        std::cin >> i;
-    }
-    std::cout << "\ntestMemento(): end\n";
+void observer()
+{
+    std::shared_ptr < Number > n ( std::make_shared < Number > ( 14 ) );
+    std::shared_ptr < Observer > d1 ( std::make_shared < DivObserver > ( n, 4 ) );
+    std::shared_ptr < Observer > d2 ( std::make_shared < DivObserver > ( n, 5 ) );
+    std::shared_ptr < Observer > m1 ( std::make_shared < ModObserver > ( n, 4 ) );
+    std::shared_ptr < Observer > m2 ( std::make_shared < ModObserver > ( n, 5 ) );
+
+    n.get()->setValue ( 17 );
+}
+
+void testObserver()
+{
+    std::cout << "\nnoobserver\n";
+    noobserver();
+    std::cout << "\nobserver\n";
+    observer();
+    std::cout << "\ntestObserver(): end\n";
 }
 
 int main()
 {
-   testMemento();
-   std::cout << "main(): end\n";
-
+    testObserver();
+    std::cout << "main(): end\n";
 
     return 0;
 }
