@@ -1,12 +1,26 @@
 #include "number.h"
 
+Observer::Observer()
+{}
+Observer::~Observer()
+{}
+void Observer::becomeAttached ( std::weak_ptr < Number > object,
+                                const std::shared_ptr < Observer > &thisObserver ) const
+{
+    object.lock().get()->attach ( std::shared_ptr < Observer > ( thisObserver ) );
+}
+
 Number::Number ( int value ) : mValue { value }
 {}
 Number::~Number()
 {}
 void Number::attach ( std::shared_ptr < Observer > observer )
 {
-    mObservers.push_back ( observer );
+    mObservers.push_back ( std::move ( observer ) );
+}
+int Number::getValue() const
+{
+    return mValue;
 }
 void Number::setValue ( int value )
 {
@@ -15,40 +29,44 @@ void Number::setValue ( int value )
 }
 void Number::notify() const
 {
-    for ( auto &element : mObservers )
+    for ( const auto &element : mObservers )
         element.get()->update ( mValue );
 }
-int Number::getValue() const
-{
-    return mValue;
-}
 
-DivObserver::DivObserver ( std::weak_ptr < Number > object, int divisor )
+DivObserver::DivObserver ( int divisor )
     : mDivisor { divisor }
 {
-    object.lock().get()->attach ( std::shared_ptr < DivObserver > ( this ) );
-    std::cout << "\t\t\tDivObserver acquired\n";
+    std::cout << "DivObserver acquired\n";
 }
 DivObserver::~DivObserver()
 {
-    std::cout << "\t\t\tDivObserver destroyed\n";
+    std::cout << "DivObserver destroyed\n";
 }
 void DivObserver::update ( int value )
 {
     std::cout << value << '/' << mDivisor << '=' << value / mDivisor << '\n';
 }
-
-ModObserver::ModObserver ( std::weak_ptr < Number > object, int module )
-    : mModule { module }
+void DivObserver::becomeAttached ( std::weak_ptr < Number > object,
+                                   const std::shared_ptr < Observer > &thisObserver ) const
 {
-    object.lock().get()->attach ( std::shared_ptr < ModObserver > ( this ) );
-    std::cout << "\t\t\tModObserver acquired\n";
+    Observer::becomeAttached ( std::move ( object ), thisObserver );
+}
+
+ModObserver::ModObserver ( int modDivisor )
+    : mModDivisor { modDivisor }
+{
+    std::cout << "ModObserver acquired\n";
 }
 ModObserver::~ModObserver()
 {
-    std::cout << "\t\t\tModObserver destroyed\n";
+    std::cout << "ModObserver destroyed\n";
 }
 void ModObserver::update ( int value )
 {
-    std::cout << '(' << value << ")module" << mModule << '=' << value % mModule << '\n';
+    std::cout << '(' << value << ")mod" << mModDivisor << '=' << value % mModDivisor << '\n';
+}
+void ModObserver::becomeAttached ( std::weak_ptr < Number > object,
+                                   const std::shared_ptr < Observer > &thisObserver ) const
+{
+    Observer::becomeAttached ( std::move ( object ), thisObserver );
 }

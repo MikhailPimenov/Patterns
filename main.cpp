@@ -19,12 +19,18 @@ void noobserver()
 void observer()
 {
     std::shared_ptr < Number > n ( std::make_shared < Number > ( 14 ) );
-    std::shared_ptr < Observer > d1 ( std::make_shared < DivObserver > ( n, 4 ) );
-    std::shared_ptr < Observer > d2 ( std::make_shared < DivObserver > ( n, 5 ) );
-    std::shared_ptr < Observer > m1 ( std::make_shared < ModObserver > ( n, 4 ) );
-    std::shared_ptr < Observer > m2 ( std::make_shared < ModObserver > ( n, 5 ) );
+    std::shared_ptr < Observer > d1 ( std::make_shared < DivObserver > ( 4 ) );
+    std::shared_ptr < Observer > d2 ( std::make_shared < DivObserver > ( 5 ) );
+    std::shared_ptr < Observer > m1 ( std::make_shared < ModObserver > ( 4 ) );
+    std::shared_ptr < Observer > m2 ( std::make_shared < ModObserver > ( 5 ) );
+
+    d1.get()->becomeAttached ( n, d1 );
+    d2.get()->becomeAttached ( n, d2 );
+    m1.get()->becomeAttached ( n, m1 );
+    m2.get()->becomeAttached ( n, m2 );
 
     n.get()->setValue ( 17 );
+    n.get()->setValue ( 23 );
 }
 
 void testObserver()
