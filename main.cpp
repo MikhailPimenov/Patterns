@@ -1,27 +1,24 @@
 #include <iostream>
 
-// patterns: strategy
-#include <strategy/compression.h>
+// patterns: template method
+#include "templatemethod/base.h"
 
-void testStrategy()
+void testTemplateMethod()
 {
-    std::string file1 = "file1";
+    Derived1 d1;
+    Derived2 d2;
 
-    Compressor compressor ( std::make_unique < RAR_compression > () );
-    compressor.compress ( file1 );
+    Base *methods[2] { &d1, &d2 };
 
-    compressor.setCompression ( std::make_unique < ZIP_compression > () );
-    compressor.compress ( file1 );
+    for ( int i = 0; i < 2; ++i )
+        methods[i]->execute();
 
-    compressor.setCompression ( std::make_unique < ARJ_compression > () );
-    compressor.compress ( file1 );
-
-    std::cout << "\ntestStrategy(): end\n";
+    std::cout << "\ntestTemplateMethod(): end\n";
 }
 
 int main()
 {
-    testStrategy();
+    testTemplateMethod();
     std::cout << "main(): end\n";
 
     return 0;
