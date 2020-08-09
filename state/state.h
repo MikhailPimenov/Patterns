@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+
 class State;
 class Machine
 {
@@ -12,23 +13,21 @@ public:
     Machine();
     virtual ~Machine();
 
-    void setCurrentState ( std::unique_ptr < State > currentState );
-
+    void setCurrentState ( std::unique_ptr < State > currentNewState );
+    void execute() const;
     void on();
     void off();
-    void execute() const;
 };
 
 class State
-{    
+{
 public:
     State();
     virtual ~State();
 
     virtual void execute() = 0;
-
-    virtual void on ( Machine *m );
-    virtual void off ( Machine *m );
+    virtual void on ( Machine * );
+    virtual void off ( Machine * );
 };
 
 class StateOn : public State
@@ -38,7 +37,7 @@ public:
     virtual ~StateOn() override;
 
     virtual void execute() override;
-    virtual void off ( Machine *m ) override;
+    virtual void off ( Machine * m ) override;
 };
 
 class StateOff : public State

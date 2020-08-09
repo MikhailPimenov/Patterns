@@ -1,37 +1,35 @@
 #include "state.h"
 
-Machine::Machine()
-{
-    setCurrentState ( std::make_unique < StateOff > () );
-}
+Machine::Machine() : mCurrentState { std::make_unique < StateOff > () }
+{}
 Machine::~Machine()
 {}
-void Machine::setCurrentState ( std::unique_ptr < State > currentState )
+void Machine::setCurrentState ( std::unique_ptr < State > currentNewState )
 {
-    mCurrentState = std::move ( currentState );
-}
-void Machine::on()
-{
-    mCurrentState->on ( this );
-}
-void Machine::off()
-{
-    mCurrentState->off ( this );
+    mCurrentState = std::move ( currentNewState );
 }
 void Machine::execute() const
 {
-    mCurrentState->execute();
+    mCurrentState.get()->execute();
+}
+void Machine::on()
+{
+    mCurrentState.get()->on ( this );
+}
+void Machine::off()
+{
+    mCurrentState.get()->off ( this );
 }
 
 State::State()
 {}
 State::~State()
 {}
-void State::on ( Machine* )
+void State::on ( Machine * )
 {
     std::cout << "    already ON\n";
 }
-void State::off ( Machine* )
+void State::off ( Machine * )
 {
     std::cout << "    already OFF\n";
 }
@@ -69,3 +67,4 @@ void StateOff::execute()
 {
     std::cout << "DOING SOMETHING OFF\n";
 }
+
