@@ -1,24 +1,33 @@
 #include <iostream>
+#include <memory>
 
-// patterns: template method
-#include "templatemethod/base.h"
+// patterns: visitor
+#include "visitor1/visitor1.h"
 
-void testTemplateMethod()
+void testVisitor()
 {
-    Derived1 d1;
-    Derived2 d2;
+    std::unique_ptr < Element1 > elements[3]
+    {
+        std::make_unique < Thiss > (),
+        std::make_unique < That > (),
+        std::make_unique < Another > (),
+    };
 
-    Base *methods[2] { &d1, &d2 };
+    Up up;
+    Down down;
 
-    for ( int i = 0; i < 2; ++i )
-        methods[i]->execute();
+    for ( int i = 0; i < 3; ++i )
+    {
+        elements[i].get()->accept ( up );
+        elements[i].get()->accept ( down );
+    }
 
-    std::cout << "\ntestTemplateMethod(): end\n";
+    std::cout << "\ntestVisitor(): end\n";
 }
 
 int main()
 {
-    testTemplateMethod();
+    testVisitor();
     std::cout << "main(): end\n";
 
     return 0;
