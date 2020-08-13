@@ -5,15 +5,15 @@ Element1::Element1()
 Element1::~Element1()
 {}
 
-Thiss::Thiss()
+This::This()
 {}
-Thiss::~Thiss()
+This::~This()
 {}
-void Thiss::accept ( Visitor1 &v )
+void This::accept ( Visitor1 &v )
 {
     v.visit ( *this );
 }
-std::string Thiss::thiss() const
+std::string This::thiss()
 {
     return "this";
 }
@@ -26,7 +26,7 @@ void That::accept ( Visitor1 &v )
 {
     v.visit ( *this );
 }
-std::string That::that() const
+std::string That::that()
 {
     return "that";
 }
@@ -39,7 +39,7 @@ void Another::accept ( Visitor1 &v )
 {
     v.visit ( *this );
 }
-std::string Another::another() const
+std::string Another::another()
 {
     return "another";
 }
@@ -49,36 +49,36 @@ Visitor1::Visitor1()
 Visitor1::~Visitor1()
 {}
 
-Up::Up()
+UpVisitor::UpVisitor()
 {}
-Up::~Up()
+UpVisitor::~UpVisitor()
 {}
-void Up::visit ( Thiss &thiss )
+void UpVisitor::visit ( This &e )
 {
-    std::cout << "Do up with " << thiss.thiss() << '\n';
+    std::cout << "Do UP with " << e.thiss() << '\n';
 }
-void Up::visit ( That &that )
+void UpVisitor::visit ( That &e )
 {
-    std::cout << "Do up with " << that.that() << '\n';
+    std::cout << "Do UP with " << e.that() << '\n';
 }
-void Up::visit ( Another &another )
+void UpVisitor::visit ( Another &e )
 {
-    std::cout << "Do up with " << another.another() << '\n';
+    std::cout << "Do UP with " << e.another() << '\n';
 }
 
-Down::Down()
+DownVisitor::DownVisitor()
 {}
-Down::~Down()
+DownVisitor::~DownVisitor()
 {}
-void Down::visit ( Thiss &thiss )
+void DownVisitor::visit ( This &e )
 {
-    std::cout << "Do down with " << thiss.thiss() << '\n';
+    std::cout << "Do DOWN with " << e.thiss() << '\n';
 }
-void Down::visit ( That &that )
+void DownVisitor::visit ( That &e )
 {
-    std::cout << "Do down with " << that.that() << '\n';
+    std::cout << "Do DOWN with " << e.that() << '\n';
 }
-void Down::visit ( Another &another )
+void DownVisitor::visit ( Another &e )
 {
-    std::cout << "Do down with " << another.another() << '\n';
+    std::cout << "Do DOWN with " << e.another() << '\n';
 }
