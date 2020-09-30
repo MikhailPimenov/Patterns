@@ -1,15 +1,13 @@
 #include <iostream>
 #include <memory>
 
-// patterns: singleton
+// patterns: factory
 
-#include "Creational/Singleton1/singleton.h"
-#include "Creational/Singleton1/test_singleton.h"
-
+#include "Creational/factory1/test_factory.h"
 
 int main()
 {
-    test_singleton();
+    test_factory();
     std::cout << "main(): end\n";
 
     return 0;
