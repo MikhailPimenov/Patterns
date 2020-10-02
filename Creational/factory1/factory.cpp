@@ -9,26 +9,26 @@ FactoryHorseman::FactoryHorseman()
 {}
 FactoryHorseman::~FactoryHorseman()
 {}
-std::unique_ptr < Warrior > FactoryHorseman::create_warrior() const
+std::unique_ptr < Factory_::Warrior > FactoryHorseman::create_warrior() const
 {
-    return std::make_unique < Horseman > ();
+    return std::make_unique < Factory_::Horseman > ();
 }
 
 FactoryInfantryman::FactoryInfantryman()
 {}
 FactoryInfantryman::~FactoryInfantryman()
 {}
-std::unique_ptr < Warrior > FactoryInfantryman::create_warrior() const
+std::unique_ptr < Factory_::Warrior > FactoryInfantryman::create_warrior() const
 {
-    return std::make_unique < Infantryman > ();
+    return std::make_unique < Factory_::Infantryman > ();
 }
 
 FactoryArcher::FactoryArcher()
 {}
 FactoryArcher::~FactoryArcher()
 {}
-std::unique_ptr < Warrior > FactoryArcher::create_warrior() const
+std::unique_ptr < Factory_::Warrior > FactoryArcher::create_warrior() const
 {
-    return std::make_unique < Archer > ();
+    return std::make_unique < Factory_::Archer > ();
 }
 

@@ -1,23 +1,18 @@
 #include "test_factory.h"
 
-
-
 void warrior_function ( const FactoryWarrior &factory )
 {
     std::cout << "warrior_function() start:\n";
 
-    std::unique_ptr < Warrior > warrior = factory.create_warrior();
+    std::unique_ptr < Factory_::Warrior > warrior = factory.create_warrior();
     warrior.get()->info();
 
     std::cout << "warrior_function() end:\n";
 }
 
-
-
-
-
 void test_factory()
 {
+    std::cout << "===Pattern: factory===\n\n";
     std::cout << "test_factory(): start\n";
 
     FactoryArcher archer;
@@ -28,7 +23,6 @@ void test_factory()
     warrior_function ( horseman );
     warrior_function ( infantryman );
 
-
-    std::cout << "test_factory(): end\n";
+    std::cout << "test_factory(): end\n\n";
 }
 
