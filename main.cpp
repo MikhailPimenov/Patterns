@@ -1,13 +1,13 @@
 #include <iostream>
 #include <memory>
 
-// patterns: abstract_factory
+// patterns: builder
 
-#include "Creational/abstract_factory/test_abstract_factory.h"
+#include "Creational/builder/builder1/test_builder1.h"
 
 int main()
 {
-    test_abstract_factory();
+    test_builder1();
     std::cout << "main(): end\n";
 
     return 0;
