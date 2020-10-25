@@ -1,14 +1,17 @@
 #include <iostream>
 
-// patterns: flyweight
+// patterns: proxy
 
-#include "Structural/Flyweight/Flyweight1/test_flyweight1.h"
+#include "Structural/Proxy/Proxy1/test_proxy1.h"
+#include "Structural/Proxy/Proxy2/test_proxy2.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Flyweight1_::test_flyweight1();
+    Proxy1_::test_proxy1();
+    std::cout << std::endl << std::endl << std::endl;
+    Proxy2_::test_proxy2();
 
     std::cout << "main(): end\n";
 
