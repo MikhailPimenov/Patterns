@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: chain of responsibility
+// patterns: command
 
-#include "Behavioral/Chain_of_responsibility/Chain_of_responsibility1/test_chain_of_responsibility1.h"
+#include "Behavioral/Command/Command1/test_command1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Chain_of_responsibility1_::test_chain_of_responsibility1();
+    Command1_::test_command1();
 
     std::cout << "main(): end\n";
 
