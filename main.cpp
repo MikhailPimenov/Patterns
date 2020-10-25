@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: facade
+// patterns: flyweight
 
-#include "Structural/Facade/Facade1/test_facade1.h"
+#include "Structural/Flyweight/Flyweight1/test_flyweight1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Facade1_::test_facade1();
+    Flyweight1_::test_flyweight1();
 
     std::cout << "main(): end\n";
 
