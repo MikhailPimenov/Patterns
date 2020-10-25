@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: bridge
+// patterns: composite
 
-#include "Structural/Bridge/Bridge1/test_bridge1.h"
+#include "Structural/Composite/Composite1/test_composite1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Bridge1_::test_bridge1();
+    Composite1_::test_composite1();
 
     std::cout << "main(): end\n";
 
