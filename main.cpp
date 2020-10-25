@@ -1,17 +1,14 @@
 #include <iostream>
 
-// patterns: proxy
+// patterns: chain of responsibility
 
-#include "Structural/Proxy/Proxy1/test_proxy1.h"
-#include "Structural/Proxy/Proxy2/test_proxy2.h"
+#include "Behavioral/Chain_of_responsibility/Chain_of_responsibility1/test_chain_of_responsibility1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Proxy1_::test_proxy1();
-    std::cout << std::endl << std::endl << std::endl;
-    Proxy2_::test_proxy2();
+    Chain_of_responsibility1_::test_chain_of_responsibility1();
 
     std::cout << "main(): end\n";
 
