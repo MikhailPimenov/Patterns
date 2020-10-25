@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: adapter
+// patterns: bridge
 
-#include "Structural/Adapter/Adapter1/test_adapter1.h"
+#include "Structural/Bridge/Bridge1/test_bridge1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Adapter1_::test_adapter1();
+    Bridge1_::test_bridge1();
 
     std::cout << "main(): end\n";
 
