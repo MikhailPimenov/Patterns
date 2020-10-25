@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: decorator
+// patterns: facade
 
-#include "Structural/Decorator/Decorator1/test_decorator1.h"
+#include "Structural/Facade/Facade1/test_facade1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Decorator1_::test_decorator1();
+    Facade1_::test_facade1();
 
     std::cout << "main(): end\n";
 
