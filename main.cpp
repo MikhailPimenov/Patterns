@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: object pool
+// patterns: adapter
 
-#include "Creational/ObjectPool/ObjectPool1/test_object_pool1.h"
+#include "Structural/Adapter/Adapter1/test_adapter1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Object_Pool1_::test_object_pool1();
+    Adapter1_::test_adapter1();
 
     std::cout << "main(): end\n";
 
