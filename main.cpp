@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: composite
+// patterns: decorator
 
-#include "Structural/Composite/Composite1/test_composite1.h"
+#include "Structural/Decorator/Decorator1/test_decorator1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Composite1_::test_composite1();
+    Decorator1_::test_decorator1();
 
     std::cout << "main(): end\n";
 
