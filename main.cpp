@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: iterator
+// patterns: mediator
 
-#include "Behavioral/Iterator/Iterator1/test_iterator1.h"
+#include "Behavioral/Mediator/Mediator1/test_mediator1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Iterator1_::test_iterator1();
+    Mediator1_::test_mediator1();
 
     std::cout << "main(): end\n";
 
