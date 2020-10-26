@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: command
+// patterns: interpreter
 
-#include "Behavioral/Command/Command1/test_command1.h"
+#include "Behavioral/Interpreter/Interpreter1/test_interpreter1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Command1_::test_command1();
+    Interpreter1_::test_interpreter1();
 
     std::cout << "main(): end\n";
 
