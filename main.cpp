@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: interpreter
+// patterns: iterator
 
-#include "Behavioral/Interpreter/Interpreter1/test_interpreter1.h"
+#include "Behavioral/Iterator/Iterator1/test_iterator1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Interpreter1_::test_interpreter1();
+    Iterator1_::test_iterator1();
 
     std::cout << "main(): end\n";
 
