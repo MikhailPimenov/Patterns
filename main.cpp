@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: memento
+// patterns: observer
 
-#include "Behavioral/Memento/Memento1/test_memento1.h"
+#include "Behavioral/Observer/Observer1/test_observer1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Memento1_::test_memento1();
+    Observer1_::test_observer1();
 
     std::cout << "main(): end\n";
 
