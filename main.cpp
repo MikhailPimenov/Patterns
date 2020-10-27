@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: mediator
+// patterns: memento
 
-#include "Behavioral/Mediator/Mediator1/test_mediator1.h"
+#include "Behavioral/Memento/Memento1/test_memento1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Mediator1_::test_mediator1();
+    Memento1_::test_memento1();
 
     std::cout << "main(): end\n";
 
