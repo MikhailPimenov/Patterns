@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: strategy
+// patterns: state
 
-#include "Behavioral/Strategy/Strategy1/test_strategy1.h"
+#include "Behavioral/State/State1/test_state1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Strategy1_::test_strategy1();
+    State1_::test_state1();
 
     std::cout << "main(): end\n";
 
