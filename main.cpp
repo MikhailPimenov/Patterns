@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: strategy
+// patterns: template method
 
-#include "Behavioral/Strategy/Strategy1/test_strategy1.h"
+#include "Behavioral/Template_method/Template_method1/test_template_method1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Strategy1_::test_strategy1();
+    Template_method1_::test_template_method1();
 
     std::cout << "main(): end\n";
 
