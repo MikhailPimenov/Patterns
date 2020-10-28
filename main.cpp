@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: observer
+// patterns: state
 
-#include "Behavioral/Observer/Observer1/test_observer1.h"
+#include "Behavioral/State/State1/test_state1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Observer1_::test_observer1();
+    State1_::test_state1();
 
     std::cout << "main(): end\n";
 
