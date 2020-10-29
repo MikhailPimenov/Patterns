@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: template method
+// patterns: visitor
 
-#include "Behavioral/Template_method/Template_method1/test_template_method1.h"
+#include "Behavioral/Visitor/Visitor1/test_visitor1.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Template_method1_::test_template_method1();
+    Visitor1_::test_visitor1();
 
     std::cout << "main(): end\n";
 
