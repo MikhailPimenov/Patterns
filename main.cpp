@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: visitor
+// patterns: prototype2
 
-#include "Behavioral/Visitor/Visitor1/test_visitor1.h"
+#include "Creational/prototype/prototype2/test_prototype2.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Visitor1_::test_visitor1();
+    Prototype2_::test_prototype2();
 
     std::cout << "main(): end\n";
 
