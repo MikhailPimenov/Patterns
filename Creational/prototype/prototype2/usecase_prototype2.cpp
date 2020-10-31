@@ -1,5 +1,7 @@
 #include "usecase_prototype2.h"
 
+
+
 namespace Prototype2_ {
 
     Figure::Figure()

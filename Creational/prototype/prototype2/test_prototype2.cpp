@@ -2,8 +2,9 @@
 
 namespace Prototype2_ {
 
-    Circle Circle::s_prototype = Circle ( Dummy() );
-    Triangle Triangle::s_prototype = Triangle ( Dummy() );
+
+//    Circle Circle::s_prototype = Circle ( Dummy() );
+//    Triangle Triangle::s_prototype = Triangle ( Dummy() );
 
     void test_prototype2()
     {

@@ -1,14 +1,14 @@
 #include <iostream>
 
-// patterns: prototype2
+// patterns: decorator2
 
-#include "Creational/prototype/prototype2/test_prototype2.h"
+#include "Structural/Decorator/Decorator2/test_decorator2.h"
 
 int main()
 {
     std::cout << "main(): start\n";
 
-    Prototype2_::test_prototype2();
+    Decorator2_::test_decorator2();
 
     std::cout << "main(): end\n";
 
